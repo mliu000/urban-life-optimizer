@@ -1,5 +1,5 @@
-# **Urban Life Optimizer**
-nwHacks 2026 Project
+# **Urban Life Optimizer @ nwHacks 2026**
+
 Authors: Mu Ye, Sakura, Natalie, Annaliese
 
 ## **Inspiration**
