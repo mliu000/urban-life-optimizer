@@ -1,8 +1,10 @@
 .inputContainer {
   margin-top: 80px;
   height: 350px;
-  width: 100wh;
   overflow-y: auto;
+
+  display: flex;
+  justify-content: center;
 }
 
 .inputGrid {

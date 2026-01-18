@@ -5,109 +5,73 @@ import { askGemini } from "./api";
 const inputConfig = [
   {
     id: "homeNeighbourhood",
-    label: "Your neighbourhood",
+    label: "Home postal code",
     type: "text",
-    placeholder: "Enter postal code",
+    placeholder: "Enter a text",
   },
   {
-    id: "workNeighbourhood",
-    label: "Office neighbourhood",
+    id: "officeNeighbourhood",
+    label: "Office postal code",
     type: "text",
-    placeholder: "Enter postal code",
+    placeholder: "Enter a text",
   },
   {
     id: "daysOfWork",
     label: "Days per week in-person",
-    type: "text",
-    placeholder: "Enter a number",
+    type: "select",
+    placeholder: "Select from dropdown",
   },
   {
-    id: "hasCar",
-    label: "Do you have a car?",
+    id: "transportationMethod",
+    label: "Transportation method",
     type: "text",
-    placeholder: "Enter yes or no",
+    placeholder: "Select from dropdown",
   },
   {
     id: "monthlyIncome",
-    label: "Monthly Income",
+    label: "Monthly income",
     type: "text",
-    placeholder: "Enter monthly income",
+    placeholder: "Enter a number",
   },
   {
     id: "commuteTime",
     label: "Commute time",
     type: "text",
-    placeholder: "Enter commute time",
+    placeholder: "Enter a number",
   },
   {
     id: "commuteTolerance",
     label: "Max commute time tolerance",
     type: "text",
-    placeholder: "Enter commute time tolerance",
-  },
-  {
-    id: "transitPreference",
-    label: "Transit vs driving preference",
-    type: "text",
-    placeholder: "Enter preference",
+    placeholder: "Enter a number",
   },
   {
     id: "workHours",
-    label: "Work hours",
+    label: "Daily work hours",
     type: "text",
-    placeholder: "Enter your work hours",
+    placeholder: "Select from dropdown",
   },
   {
-    id: "livingSituation",
-    label: "Current living situation",
+    id: "hasDog",
+    label: "Do you have a dog?",
     type: "text",
-    placeholder: "Enter your living situation",
-  },
-  {
-    id: "budgetComfort",
-    label: "Budget comfort",
-    type: "text",
-    placeholder: "Enter your budget comfort",
+    placeholder: "Select from dropdown",
   },
   {
     id: "roommatePreference",
-    label: "Roommate Preference",
+    label: "Preference for the number of roommates",
     type: "text",
-    placeholder: "Enter your roommate preference",
+    placeholder: "Select from dropdown",
   },
   {
-    id: "extracurricular1",
-    label: "Extracurricular 1",
-    type: "text",
-    placeholder: "Enter extracurricular 1",
-  },
-  {
-    id: "extracurricular1Days",
-    label: "Days per week",
+    id: "monthlyBudget",
+    label: "Monthly budget",
     type: "text",
     placeholder: "Enter a number",
   },
   {
-    id: "extracurricular2",
-    label: "Extracurricular 2",
-    type: "text",
-    placeholder: "Enter extracurricular 2",
-  },
-  {
-    id: "extracurricular2Days",
-    label: "Days per week",
-    type: "text",
-    placeholder: "Enter a number",
-  },
-  {
-    id: "extracurricular3",
-    label: "Extracurricular 3",
-    type: "text",
-    placeholder: "Enter extracurricular 3",
-  },
-  {
-    id: "extracurricular3Days",
-    label: "Days per week",
+    id: "rentExpense",
+    label: "Ideal monthly expense on rent",
     type: "text",
     placeholder: "Enter a number",
   },
@@ -128,7 +92,10 @@ function InputGrid() {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const result = await askGemini("Analyze this user's urban life situation and give recommendations", formData);
+      const result = await askGemini(
+        "Analyze this user's urban life situation and give recommendations",
+        formData
+      );
       setResponse(result);
     } catch (error) {
       console.error(error);
@@ -137,24 +104,28 @@ function InputGrid() {
   };
 
   return (
+    <div>
       <div className="inputContainer">
         <div className="inputGrid">
           {inputConfig.map((field) => (
-              <div key={field.id} className="inputGroup">
-                <label className="inputLabel">{field.label}</label>
-                <input
-                    type={field.type}
-                    placeholder={field.placeholder}
-                    onChange={(e) => handleChange(field.id, e.target.value)}
-                />
-              </div>
+            <div key={field.id} className="inputGroup">
+              <label className="inputLabel">{field.label}</label>
+              <input
+                type={field.type}
+                placeholder={field.placeholder}
+                onChange={(e) => handleChange(field.id, e.target.value)}
+              />
+            </div>
           ))}
         </div>
+      </div>
+      <div>
         <button onClick={handleSubmit} disabled={loading}>
           {loading ? "Loading..." : "Get Recommendations"}
         </button>
         {response && <div className="response">{response}</div>}
       </div>
+    </div>
   );
 }
 
