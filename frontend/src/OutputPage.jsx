@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react'
 import Background from './assets/background.png'
 import HeaderComponent from './HeaderComponent'
 import './OutputPage.css'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export default function OutputPage() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [result, setResult] = useState(null);
 
   useEffect(() => {
@@ -13,13 +14,10 @@ export default function OutputPage() {
     try {
       let rawData = location.state;
 
-      // 1. Sanitize the string: Remove markdown code blocks if they exist
       if (typeof rawData === 'string') {
-        // This regex removes ```json and ``` from the string
         rawData = rawData.replace(/```json|```/gi, '').trim();
       }
 
-      // 2. Parse the clean string
       const aiData = typeof rawData === 'string' ? JSON.parse(rawData) : rawData;
       setResult(aiData);
       
@@ -28,7 +26,7 @@ export default function OutputPage() {
       setResult({
         living: "Error parsing data",
         commute: "Please try again",
-        whyItWorks: location.state, // Show the raw text so you can still read it
+        whyItWorks: location.state,
         actionItems: []
       });
     }
@@ -37,38 +35,14 @@ export default function OutputPage() {
 
   if (!result) return <div className="loading">Processing plan...</div>;
 
+  const handleStartOver = () => {
+    navigate('/WelcomePage'); 
+  };
+
   return (
     <>
       <img src={Background} className='background-image' />
       <HeaderComponent />
-      {/* <div id='output-page-container'>
-        <h2 id='output-page-recommended-title' className='output-page-header-text'>
-          Recommended Lifestyle Plan:
-        </h2>
-        <p className='output-page-plain-text'><strong>Living:</strong> {result.living}</p>
-        <p className='output-page-plain-text'><strong>Commute:</strong> {result.commute}</p>
-        <p className='output-page-plain-text'><strong>Commute Time:</strong> {result.commuteTime}</p>
-        <p className='output-page-plain-text'><strong>Car:</strong> {result.car}</p>
-
-        <h2 className='output-page-header-text'>Explanation</h2>
-        <div className="analysis-block">
-          <h3>Financial Impact</h3>
-          <p className='output-page-plain-text'>{result.financialImpact}</p>
-          
-          <h3>Burnout Risk</h3>
-          <p className='output-page-plain-text'>{result.burnoutRisk}</p>
-          
-          <h3>Why this works for you</h3>
-          <p className='output-page-plain-text'>{result.whyItWorks}</p>
-        </div>
-
-        <h2 className='output-page-header-text'>Top 3 Action Items</h2>
-        <ul className='output-page-plain-text'>
-          {result.actionItems?.map((item, index) => (
-            <li key={index} style={{ marginBottom: '10px' }}>{item}</li>
-          ))}
-        </ul>
-      </div> */}
       <div id='output-page-container'>
   <h2 id='output-page-recommended-title' className='output-page-header-text'>
     Recommended Lifestyle Plan
@@ -116,6 +90,12 @@ export default function OutputPage() {
       <li key={index}>{item}</li>
     ))}
   </ul>
+
+  <div className="button-container">
+    <button className="new-search-btn" onClick={handleStartOver}>
+      Start New Search
+    </button>
+  </div>
 </div>
     </>
   )

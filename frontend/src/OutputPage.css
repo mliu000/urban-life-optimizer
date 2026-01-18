@@ -65,3 +65,34 @@ ul.output-page-plain-text {
   margin-bottom: 30px;
   width: 100%;
 }
+
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  padding-bottom: 20px;
+}
+
+.new-search-btn {
+  background-color: #002d03;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.new-search-btn:hover {
+  background-color: #002d03;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+}
+
+.new-search-btn:active {
+  transform: translateY(0);
+}
