@@ -1,5 +1,5 @@
 import "./InputGrid.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const inputConfig = [
   {
@@ -85,31 +85,47 @@ const inputConfig = [
 function InputGrid() {
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [response, setResponse] = useState("");
 
+  useEffect(() => {
+    let interval;
+    if (loading) {
+      setProgress(0);
+      interval = setInterval(() => {
+        setProgress((prev) => {
+          if (prev >= 90) return prev;
+          return prev + 5;
+        });
+      }, 200);
+    } else {
+      setProgress(0);
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [loading]);
+
   const handleChange = (id, value) => {
-    setFormData((prev) => ({
-      ...prev,
-      [id]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [id]: value, }));
   };
 
   const handleSubmit = async () => {
-    setLoading(true);
-    try {
-      // Save data to JSON file
-      await fetch('http://localhost:3000/save-data', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+  setLoading(true);
+  setResponse("");
+  try {
+    // Save data to JSON file
+    await fetch('http://localhost:3000/save-data', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    });
 
-      // Ask Gemini via backend
-      const res = await fetch('http://localhost:3000/ask', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          prompt: `You are an urban life optimizer for Vancouver, BC. Analyze this user's situation using the provided data and return a recommended lifestyle plan.
+    // Ask Gemini via backend
+    const res = await fetch('http://localhost:3000/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        prompt: `You are an urban life optimizer for Vancouver, BC. Analyze this user's situation using the provided data and return a recommended lifestyle plan.
 
 USE THE PROVIDED DATA:
 - rentData: Match postal codes to find neighborhoods, average/median rent, vacancy rates
@@ -142,17 +158,21 @@ ${parseInt(formData.childrenNumber) > 0 ? '- Schools: [List 2-3 specific schools
 3. [Specific actionable step]
 
 Be concise and specific. Use actual names, numbers, and addresses from the data.`,
-          context: formData,
-        }),
-      });
-      const data = await res.json();
-      setResponse(data.response);
-    } catch (error) {
-      console.error(error);
-    }
-    setLoading(false);
-  };
-
+        context: formData,
+      }),
+    });
+    
+    const data = await res.json();
+    setProgress(100);
+    setResponse(data.response);
+  } catch (error) {
+    console.error(error);
+    setResponse("An error occurred. Please try again.");
+  } finally {
+    setTimeout(() => setLoading(false), 500);
+  }
+};
+  
   return (
     <div>
       <div className="inputContainer">
@@ -187,11 +207,34 @@ Be concise and specific. Use actual names, numbers, and addresses from the data.
           ))}
         </div>
       </div>
-      <div>
-        <button onClick={handleSubmit} disabled={loading}>
-          {loading ? "Loading..." : "Get Recommendations"}
+
+      <div className="actionContainer">
+        <button 
+          className="submit-btn" 
+          onClick={handleSubmit} 
+          disabled={loading}
+        >
+          {loading ? "Thinking..." : "Get Recommendations"}
         </button>
-        {response && <div className="response">{response}</div>}
+
+        {loading && (
+          <div className="progressWrapper">
+            <div className="progressBarContainer">
+              <div 
+                className="progressBarFill" 
+                style={{ width: `${progress}%` }}
+              ></div>
+            </div>
+            <p className="loadingText">Analyzing your urban lifestyle...</p>
+          </div>
+        )}
+
+        {response && !loading && (
+          <div className="response fade-in">
+            <h3>Recommendations:</h3>
+            <p>{response}</p>
+          </div>
+        )}
       </div>
     </div>
   );
