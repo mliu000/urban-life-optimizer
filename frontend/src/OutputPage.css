@@ -9,11 +9,18 @@
   font-weight: 600;
   margin-top: 3px;
   margin-bottom: 3px;
+  max-width: 100%;
   color: black;
 }
 
 #output-page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   position: absolute;
+  overflow-y: scroll;
+  scrollbar-width: none;
   left: 50vw;
   transform: translateX(-50%);
   width: 1100px;
