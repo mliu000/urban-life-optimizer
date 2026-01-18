@@ -1,18 +1,29 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "./InputPage.css";
 import "./InputGrid.css";
+import InputGrid from "./InputGrid.jsx";
+import InputGrid2 from './InputGrid2.jsx';
 import InputGrid3 from './InputGrid3.jsx';
 import Background from './assets/background.png';
 import HeaderComponent from "./HeaderComponent.jsx";
 
 function InputPage() {
   const [gridPage, setGridPage] = useState(1);
+  const [formData, setFormData] = useState({
+    homePostalCode: "",
+    officePostalCode: "",
+    transportaionMethod: "",
+    commuteTime: "",
+    maxCommuteTimeTolerance: ""
+  })
 
   return (
     <>
       <img src={Background} class='background-image' />
       <HeaderComponent />
-      <InputGrid2 setGridPage={setGridPage} />
+      {gridPage == 1 && <InputGrid setGridPage={setGridPage} />}
+      {gridPage == 2 && <InputGrid2 setGridPage={setGridPage} />}
+      {gridPage == 3 && <InputGrid3 setGridPage={setGridPage} />}
     </>
   );
 }
