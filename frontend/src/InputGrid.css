@@ -109,11 +109,14 @@
   background-position: right 10px center;
 }
 
-.buttonGroup {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
+.required {
+    color: red;
 }
+
+.next-btn {
+
+}
+
 
 .back-btn {
   padding: 10px 20px;
