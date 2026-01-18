@@ -24,7 +24,6 @@ const inputConfig = [
 ];
 
 function InputGrid3({ setGridPage, formData, setFormData }) {
-	const [showErrors, setShowErrors] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [progress, setProgress] = useState(0);
 	const navigate = useNavigate();
@@ -51,17 +50,16 @@ function InputGrid3({ setGridPage, formData, setFormData }) {
 	};
 
 	const handleNext = () => {
-    const requiredFields = inputConfig.filter(field => field.required);
-    const missingFields = requiredFields.filter(field => !formData[field.id]);
+		const requiredFields = inputConfig.filter(field => field.required);
+		const missingFields = requiredFields.filter(field => !formData[field.id]);
 
-    if (missingFields.length > 0) {
-      alert("Please fill in all required fields before continuing.");
-      return;
-  }
+		if (missingFields.length > 0) {
+			alert("Please fill in all required fields before continuing.");
+			return;
+		}
 
-    setShowErrors(false);
-    setGridPage(current => current + 1); 
-  };
+		setGridPage(current => current + 1);
+	};
 
 	const handleSubmit = async () => {
 		setLoading(true);
@@ -162,22 +160,6 @@ Be concise and specific. Use actual names, numbers, and addresses from the data.
 						</div>
 					))}
 				</div>
-				<div className="buttonGroup">
-					<button
-						className="back-btn"
-						onClick={() => setGridPage(2)}
-						disabled={loading}
-					>
-						Back
-					</button>
-					<button
-						className="submit-btn"
-						onClick={handleSubmit}
-						disabled={loading}
-					>
-						{loading ? "Thinking..." : "Get Recommendations"}
-					</button>
-				</div>
 
 				{loading && (
 					<div className="progressWrapper">
@@ -190,6 +172,22 @@ Be concise and specific. Use actual names, numbers, and addresses from the data.
 						<p className="loadingText">Analyzing your urban lifestyle...</p>
 					</div>
 				)}
+			</div>
+			<div className="actionContainer">
+				<button
+					className="back-btn"
+					onClick={() => setGridPage(2)}
+					disabled={loading}
+				>
+					Back
+				</button>
+				<button
+					className="submit-btn"
+					onClick={handleSubmit}
+					disabled={loading}
+				>
+					{loading ? "Thinking..." : "Get Recommendations"}
+				</button>
 			</div>
 		</div>
 	);
