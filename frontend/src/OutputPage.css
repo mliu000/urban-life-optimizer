@@ -21,6 +21,7 @@
   justify-content: flex-start;
   align-items: center;
   position: absolute;
+  overflow-x: hidden;
   overflow-y: scroll;
   scrollbar-width: none;
   left: 50vw;
