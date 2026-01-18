@@ -1,5 +1,5 @@
 import "./InputGrid.css";
-import { useState, usseEffect } from "react";
+import { useState, useEffect } from "react";
 
 const inputConfig = [
   {

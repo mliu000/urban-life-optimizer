@@ -44,7 +44,7 @@
 .submit-btn {
   padding: 12px 24px;
   cursor: pointer;
-  background-color: #4f46e5;
+  background-color: #002d03;
   color: white;
   border: none;
   border-radius: 8px;
@@ -52,11 +52,10 @@
 }
 
 .submit-btn:disabled {
-  background-color: #a5a2d9;
+  background-color: #002d03;
   cursor: not-allowed;
 }
 
-/* Progress Bar Styles */
 .progressWrapper {
   width: 100%;
   max-width: 400px;
@@ -74,7 +73,7 @@
 
 .progressBarFill {
   height: 100%;
-  background-color: #4f46e5;
+  background-color: #002d03;
   transition: width 0.3s ease-in-out;
 }
 
