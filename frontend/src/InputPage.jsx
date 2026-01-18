@@ -33,7 +33,7 @@ function InputPage() {
       <HeaderComponent />
       {gridPage == 1 && <InputGrid setGridPage={setGridPage} formData={formData} setFormData={setFormData} />}
       {gridPage == 2 && <InputGrid2 setGridPage={setGridPage} formData={formData} setFormData={setFormData} />}
-      {gridPage == 3 && <InputGrid3 setGridPage={setGridPage} />}
+      {gridPage == 3 && <InputGrid3 setGridPage={setGridPage} formData={formData} setFormData={setFormData} />}
     </>
   );
 }

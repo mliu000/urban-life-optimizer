@@ -117,12 +117,12 @@ Be concise and specific. Use actual names, numbers, and addresses from the data.
             <div className="inputContainer">
                 <div className="inputGrid">
                     {inputConfig.map((field) => (
-                        <div key={field.id} className="inputGroup">
+                        <div key={field.id} className="inputStyle">
                             <label className="inputLabel">{field.label}</label>
                             <input
                                 type={field.type}
                                 placeholder={field.placeholder}
-                                value={formData[field.id] || ""}
+                                value={formData[field.id]}
                                 onChange={(e) => handleChange(field.id, e.target.value)}
                             />
                         </div>

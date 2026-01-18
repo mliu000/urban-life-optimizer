@@ -76,7 +76,7 @@ function InputGrid({ setGridPage, formData, setFormData }) {
 
               {field.type === "select" ? (
                 <select
-                  className="inputSelect"
+                  className="inputStyle"
                   value={formData[field.id]}
                   onChange={(e) => handleChange(field.id, e.target.value)}
                 >
@@ -91,6 +91,7 @@ function InputGrid({ setGridPage, formData, setFormData }) {
                 </select>
               ) : (
                 <input
+                  className="inputStyle"
                   type={field.type}
                   placeholder={field.placeholder}
                   value={formData[field.id]}
