@@ -7,30 +7,35 @@ const inputConfig = [
     label: "Days per week in-person",
     type: "select",
     options: ["1", "2", "3", "4", "5", "6", "7"],
+    required: true,
   },
   {
     id: "workHours",
     label: "Daily work hours",
     type: "select",
     options: Array.from({ length: 20 }, (_, i) => i + 1),
+    required: false,
   },
   {
     id: "hasDog",
     label: "Do you have a dog?",
     type: "select",
     options: ["Yes", "No"],
+    required: false,
   },
   {
     id: "hasChildren",
     label: "Do you have any children?",
     type: "select",
     options: ["Yes", "No"],
+    required: false,
   },
   {
     id: "roommatePreference",
     label: "Do you have a preference for roommates?",
     type: "select",
     options: ["Yes", "No"],
+    required: false,
   }
 ];
 
@@ -101,16 +106,19 @@ Be concise and specific. Use actual names, numbers, and addresses from the data.
 };
   
   return (
-    <div className="input-page-container">
       <div className="inputContainer">
         <div className="inputGrid">
           {inputConfig.map((field) => (
             <div key={field.id} className="inputGroup">
-              <label className="inputLabel">{field.label}</label>
+              <label className="inputLabel">
+                {field.required && <span className="required">* </span>}
+                {field.label}
+              </label>
 
               {field.type === "select" ? (
                 <select
                   className="inputSelect"
+                  defaultValue=""
                   value={formData[field.id] || ""}
                   onChange={(e) => handleChange(field.id, e.target.value)}
                 >
@@ -126,7 +134,6 @@ Be concise and specific. Use actual names, numbers, and addresses from the data.
               ) : (
                 <input
                   type={field.type}
-                  className="inputField"
                   placeholder={field.placeholder}
                   value={formData[field.id] || ""}
                   onChange={(e) => handleChange(field.id, e.target.value)}
@@ -135,22 +142,21 @@ Be concise and specific. Use actual names, numbers, and addresses from the data.
             </div>
           ))}
         </div>
-      </div>
 
       <div className="actionContainer">
-        <div className="buttonGroup" style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+        <div className="buttonGroup" style={{ display: "flex", gap: "10px" }}>
           <button 
-            className="secondary-btn" 
+            className="back-btn" 
             onClick={() => setGridPage(1)}
           >
             Back
           </button>
 
           <button 
-            className="submit-btn" 
-            onClick={handleSubmit}
+            className="next-btn" 
+            onClick={handleSubmit} 
           >
-            Get Recommendations
+            Next
           </button>
         </div>
 
