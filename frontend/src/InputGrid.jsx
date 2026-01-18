@@ -150,7 +150,9 @@ Be concise and specific. Use actual names, numbers, and addresses from the data.
 
               {field.type === "select" ? (
                 <select
-                  className="inputSelect"
+                  className={`inputSelect ${
+                    formData[field.id] ? "hasValue" : "placeholder"
+                  }`}
                   defaultValue=""
                   onChange={(e) => handleChange(field.id, e.target.value)}
                 >

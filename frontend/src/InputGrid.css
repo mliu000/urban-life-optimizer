@@ -129,3 +129,11 @@
 .back-btn:hover {
   background-color: #555;
 }
+
+.inputSelect.placeholder {
+    color: #7a7a7a;
+}
+
+.inputSelect.hasValue {
+    color: black;
+}
