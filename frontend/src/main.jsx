@@ -7,6 +7,6 @@ import InputPage from './InputPage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <InputPage />
+    <PageRoutes />
   </StrictMode>,
 )
