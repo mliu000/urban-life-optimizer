@@ -1,6 +1,5 @@
 import "./InputGrid.css";
 import { useState } from "react";
-import { askGemini } from "./api";
 
 const inputConfig = [
   {
@@ -92,10 +91,7 @@ function InputGrid() {
   const handleSubmit = async () => {
     setLoading(true);
     try {
-      const result = await askGemini(
-        "Analyze this user's urban life situation and give recommendations",
-        formData
-      );
+      const result = await askGemini("Analyze this user's urban life situation and give recommendations", formData);
       setResponse(result);
     } catch (error) {
       console.error(error);
