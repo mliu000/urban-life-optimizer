@@ -48,6 +48,20 @@ function InputGrid3({ setGridPage, formData, setFormData }) {
 		setFormData((prev) => ({ ...prev, [id]: value }));
 	};
 
+	const handleNext = () => {
+  		const requiredFields = inputConfig.filter(field => field.required);
+  
+  		const missingFields = requiredFields.filter(field => !formData[field.id]);
+
+  		if (missingFields.length > 0) {
+    		alert("Please fill in all required fields before continuing.");
+   			return;
+  		}
+
+		setShowErrors(false);
+  		setGridPage(current => current + 1); 
+	};
+
 	const handleSubmit = async () => {
 		setLoading(true);
 		setResponse("");

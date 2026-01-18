@@ -1,4 +1,5 @@
 import "./InputGrid.css";
+import { useState } from "react";
 
 const inputConfig = [
   {
@@ -38,8 +39,23 @@ const inputConfig = [
 ];
 
 function InputGrid({ setGridPage, formData, setFormData }) {
+  const [showErrors, setShowErrors] = useState(false);
+
   const handleChange = (id, value) => {
     setFormData((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleNext = () => {
+    const requiredFields = inputConfig.filter(field => field.required);
+    const missingFields = requiredFields.filter(field => !formData[field.id]);
+
+    if (missingFields.length > 0) {
+      alert("Please fill in all required fields before continuing.");
+      return;
+  }
+
+    setShowErrors(false);
+    setGridPage(current => current + 1); 
   };
 
   return (
@@ -47,40 +63,49 @@ function InputGrid({ setGridPage, formData, setFormData }) {
       <div className="inputContainer">
         <h5 className="inputSubTitle">Location & Commute</h5>
         <div className="inputGrid">
-          {inputConfig.map((field) => (
-            <div key={field.id} className="inputGroup">
-              <label className="inputLabel">
-                {field.required && <span className="required">* </span>}
-                {field.label}
-              </label>
+          {inputConfig.map((field) => {
+            const fieldValue = formData[field.id] ? formData[field.id].toString().trim() : "";
+            const isError = field.required && showErrors && fieldValue === "";
+            
+            return (
+              <div key={field.id} className="inputGroup">
+                <label className="inputLabel">
+                  {field.required && <span className="required">* </span>}
+                  {field.label}
+                </label>
 
-              {field.type === "select" ? (
-                <select
-                  className="inputStyle"
-                  value={formData[field.id]}
-                  onChange={(e) => handleChange(field.id, e.target.value)}
-                >
-                  <option value="" disabled>
-                    Select an option
-                  </option>
-                  {field.options.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
+                {field.type === "select" ? (
+                  <select
+                    className={`inputStyle ${isError ? "input-error" : ""}`}
+                    value={formData[field.id] || ""}
+                    onChange={(e) => handleChange(field.id, e.target.value)}
+                  >
+                    <option value="" disabled>
+                      Select an option
                     </option>
-                  ))}
-                </select>
-              ) : (
-                <input
-                  className="inputStyle"
-                  type={field.type}
-                  placeholder={field.placeholder}
-                  value={formData[field.id]}
-                  onChange={(e) => handleChange(field.id, e.target.value)} />
-              )}
-            </div>
-          ))}
+                    {field.options.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <input
+                    className={`inputStyle ${isError ? "input-error" : ""}`}
+                    type={field.type}
+                    placeholder={field.placeholder}
+                    value={formData[field.id] || ""}
+                    onChange={(e) => handleChange(field.id, e.target.value)} 
+                  />
+                )}
+              </div>
+            );
+          })}
         </div>
-        <button className="next-btn" onClick={() => setGridPage(2)}>
+      </div>
+
+      <div className="actionContainer">
+        <button className="next-btn" onClick={handleNext}>
           Next
         </button>
       </div>
