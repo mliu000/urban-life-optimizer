@@ -5,11 +5,11 @@
   "commuteTime": "",
   "maxCommuteTimeTolerance": "",
   "daysOfWork": "",
-  "workHours": "",
+  "workHours": "8",
   "hasDog": "",
-  "hasChildren": "",
+  "hasChildren": "Yes",
   "roommatePreference": "",
   "monthlyIncome": "",
-  "monthlyBudget": "",
+  "monthlyBudget": "3333",
   "rentExpense": ""
 }
