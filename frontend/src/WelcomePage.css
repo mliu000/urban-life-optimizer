@@ -11,20 +11,12 @@
   font-size: 50px;
   font-weight: 600;
   margin: 0;
-  text-shadow: 5px 5px 5px black;
 }
 
 #welcome-page-title {
   font-size: 70px;
   font-weight: 500;
   margin: 0;
-  text-shadow: 5px 5px 5px black;
-}
-
-#welcome-page-horizontal-line {
-  width: 100%;
-  height: 2px;
-  background-color: white;
 }
 
 #welcome-page-div-button {

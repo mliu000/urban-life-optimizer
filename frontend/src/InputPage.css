@@ -6,20 +6,18 @@ body {
     min-height: 100vh;
 }
 
-.headerContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.title {
+#input-page-title {
   font-size: 55px;
   color: white;
   margin: 10px 0 10px 0;
 }
 
-.line {
-  width: 550px;
-  height: 1px;
-  background-color: white;
+#input-page-horizontal-line {
+  width: 650px;
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

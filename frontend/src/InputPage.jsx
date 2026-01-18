@@ -8,9 +8,9 @@ function InputPage() {
   return (
     <>
       <img src={Background} class='background-image' />
-      <div className="headerContainer">
-        <p className="title">Urban Life Optimizer</p>
-        <div className="line"></div>
+      <div class="headerContainer">
+        <p id='input-page-title' class='title-style'>Urban Life Optimizer</p>
+        <div id="input-page-horizontal-line" class="horizontal-line"></div>
       </div>
       <InputGrid />
     </>

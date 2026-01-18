@@ -86,3 +86,13 @@ button:focus-visible {
     z-index: -1;
     opacity: 0.5;
 }
+
+.title-style {
+    text-shadow: 5px 5px 5px black;
+}
+
+.horizontal-line {
+    width: 100%;
+    height: 2px;
+    background-color: white;
+}
