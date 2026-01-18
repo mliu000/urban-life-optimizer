@@ -83,6 +83,13 @@ STRICT RULES:
 3. NO DATA REPEATING: Don't tell them what they told you. Provide new advice.
 4. ACTION ITEMS: Exactly 3.
 
+STRICT LANGUAGE RULES:
+1. NEVER use technical variable names or JSON keys (e.g., do NOT say 'hasDog', 'roommatePreference', 'daysOfWork', or 'transportationMethod').
+2. Instead of 'hasDog', say "since you have a dog" or "for your pet".
+3. Instead of 'roommatePreference', say "sharing with a roommate" or "co-living".
+4. Speak in a warm, natural human voice.
+5. NO markdown backticks. Return raw JSON only.
+
 JSON Structure:
 {
   "living_short": "Brief neighborhood name & cost benefit.",
