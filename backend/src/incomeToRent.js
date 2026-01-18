@@ -1,3 +1,5 @@
+// imports?
+
 function calculateMonthlyRentBudget(monthlyIncome, incomePercentage = 0.5) {
   return monthlyIncome * incomePercentage;
 }
