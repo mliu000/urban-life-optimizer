@@ -75,36 +75,45 @@ export default function OutputPage() {
   </h2>
   
   <div className="summary-section">
-    <p className='output-page-plain-text'><strong>📍 Living:</strong> {result.living}</p>
-    <p className='output-page-plain-text'><strong>🚗 Commute:</strong> {result.commute}</p>
-    <p className='output-page-plain-text'><strong>⏱️ Commute Time:</strong> {result.commuteTime}</p>
-    <p className='output-page-plain-text'><strong>🔑 Car:</strong> {result.car}</p>
+    <p className='output-page-plain-text'><strong>📍 Living:</strong> {result.living_short}</p>
+    <p className='output-page-plain-text'><strong>🚗 Commute:</strong> {result.commute_short}</p>
+    <p className='output-page-plain-text'><strong>⏱️ Commute Time:</strong> {result.time_short}</p>
+    <p className='output-page-plain-text'><strong>🔑 Car:</strong> {result.car_short}</p>
   </div>
 
-  <h2 className='output-page-header-text'>Detailed Analysis</h2>
+  <h2 className='output-page-header-text'>Explanation</h2>
   
   <div className="analysis-block">
-  {/* Each of these acts as a paragraph block */}
-  <div className="paragraph-group">
-    <h3 className="sub-header">Financial Impact</h3>
-    <p className='output-page-plain-text'>{result.financialImpact}</p>
-  </div>
+    <div className="paragraph-group">
+      <h3 className="sub-header">The Neighbourhood</h3>
+      <p className='output-page-plain-text'>{result.living_detail}</p>
+    </div>
 
-  <div className="paragraph-group">
-    <h3 className="sub-header">Burnout Risk</h3>
-    <p className='output-page-plain-text'>{result.burnoutRisk}</p>
-  </div>
+    <div className="paragraph-group">
+      <h3 className="sub-header">The Commute</h3>
+      <p className='output-page-plain-text'>{result.commute_detail}</p>
+    </div>
 
-  <div className="paragraph-group">
-    <h3 className="sub-header">Why this works for you</h3>
-    <p className='output-page-plain-text'>{result.whyItWorks}</p>
+    <div className="paragraph-group">
+      <h3 className="sub-header"> The Financial Impact</h3>
+      <p className='output-page-plain-text'>{result.financialImpact}</p>
+    </div>
+    
+    <div className="paragraph-group">
+      <h3 className="sub-header">The Burnout Risk</h3>
+      <p className='output-page-plain-text'>{result.burnoutRisk}</p>
+    </div>
+
+    <div className="paragraph-group">
+      <h3 className="sub-header">Why this works for you</h3>
+      <p className='output-page-plain-text'>{result.whyItWorks}</p>
+    </div>
   </div>
-</div>
 
   <h2 className='output-page-header-text'>Top 3 Action Items</h2>
-  <ul className='output-page-plain-text' style={{ textAlign: 'left', width: '80%' }}>
-    {result.actionItems?.map((item, index) => (
-      <li key={index} style={{ marginBottom: '10px' }}>{item}</li>
+  <ul className='output-page-plain-text action-list'>
+    {result.actionItems?.slice(0, 3).map((item, index) => (
+      <li key={index}>{item}</li>
     ))}
   </ul>
 </div>

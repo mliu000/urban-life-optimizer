@@ -74,23 +74,27 @@ function InputGrid3({ setGridPage, formData, setFormData }) {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
-					prompt: `You are a Vancouver Urban Consultant. 
-Analyze the following data: ${JSON.stringify(formData)}
+					prompt: `You are a professional Vancouver Urban Consultant. 
+Analyze this data: ${JSON.stringify(formData)}
 
-Return ONLY a raw JSON object. 
-DO NOT use markdown code blocks (no \`\`\`json). 
-DO NOT include any introductory text.
+STRICT RULES:
+1. TOP OVERVIEW: The fields 'living_short', 'commute_short', 'time_short', and 'car_short' must be 1 sentence only.
+2. DETAILED ANALYSIS: Move all long explanations, neighborhood names, and route details to the 'living_detail' and 'commute_detail' sections.
+3. NO DATA REPEATING: Don't tell them what they told you. Provide new advice.
+4. ACTION ITEMS: Exactly 3.
 
-Structure:
+JSON Structure:
 {
-  "living": "...",
-  "commute": "...",
-  "commuteTime": "...",
-  "car": "...",
-  "financialImpact": "...",
-  "burnoutRisk": "...",
-  "whyItWorks": "...",
-  "actionItems": ["item 1", "item 2", "item 3"]
+  "living_short": "Brief neighborhood name & cost benefit.",
+  "commute_short": "Brief primary mode & route name.",
+  "time_short": "Estimated mins (e.g. 25-30 mins).",
+  "car_short": "Brief Keep/Sell/Reduce advice.",
+  "living_detail": "Detailed breakdown of 2-3 specific neighborhoods (e.g., Marpole, Sunset) and why they fit roommates/dogs.",
+  "commute_detail": "Specific street-by-street or transit line directions (e.g., Canada Line to City Centre).",
+  "financialImpact": "Detailed savings projection.",
+  "burnoutRisk": "Detailed lifestyle sustainability analysis.",
+  "whyItWorks": "Final summary sentence.",
+  "actionItems": ["Step 1", "Step 2", "Step 3"]
 }`,
 // 					prompt: `You are a professional urban lifestyle optimizer for Vancouver, BC. Analyze this user's situation using the provided data and return a provide a friendly, clear, and actionable plan for the user.
 
