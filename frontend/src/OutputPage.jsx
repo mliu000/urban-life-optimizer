@@ -13,18 +13,18 @@ export default function OutputPage() {
   })
   return (
     <>
-      <img src={Background} class='background-image' />
+      <img src={Background} className='background-image' />
       <HeaderComponent />
       <div id='output-page-container'>
-        <h2 id='output-page-recommended-title' class='output-page-header-text'>
+        <h2 id='output-page-recommended-title' className='output-page-header-text'>
           Recommended Lifestyle Plan:
         </h2>
-        <p class='output-page-plain-text'><strong>Living:</strong> {result.living}</p>
-        <p class='output-page-plain-text'><strong>Commute:</strong> {result.commute}</p>
-        <p class='output-page-plain-text'><strong>Commute Time:</strong> {result.commuteTime}</p>
-        <p class='output-page-plain-text'><strong>Car:</strong> {result.car}</p>
-        <h2 class='output-page-header-text'>Explanation</h2>
-        <p class='output-page-plain-text'>{result.explanation}</p>
+        <p className='output-page-plain-text'><strong>Living:</strong> {result.living}</p>
+        <p className='output-page-plain-text'><strong>Commute:</strong> {result.commute}</p>
+        <p className='output-page-plain-text'><strong>Commute Time:</strong> {result.commuteTime}</p>
+        <p className='output-page-plain-text'><strong>Car:</strong> {result.car}</p>
+        <h2 className='output-page-header-text'>Explanation</h2>
+        <p className='output-page-plain-text'>{result.explanation}</p>
       </div>
     </>
   ) // stub

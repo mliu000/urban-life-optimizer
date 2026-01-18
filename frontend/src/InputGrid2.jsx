@@ -39,8 +39,7 @@ const inputConfig = [
   }
 ];
 
-function InputGrid({ setGridPage }) {
-  const [formData, setFormData] = useState({});
+function InputGrid({ setGridPage, formData, setFormData }) {
   const [response, setResponse] = useState("");
 
   const handleChange = (id, value) => {
@@ -118,8 +117,7 @@ Be concise and specific. Use actual names, numbers, and addresses from the data.
               {field.type === "select" ? (
                 <select
                   className="inputSelect"
-                  defaultValue=""
-                  value={formData[field.id] || ""}
+                  value={formData[field.id]}
                   onChange={(e) => handleChange(field.id, e.target.value)}
                 >
                   <option value="" disabled>
@@ -135,7 +133,7 @@ Be concise and specific. Use actual names, numbers, and addresses from the data.
                 <input
                   type={field.type}
                   placeholder={field.placeholder}
-                  value={formData[field.id] || ""}
+                  value={formData[field.id]}
                   onChange={(e) => handleChange(field.id, e.target.value)}
                 />
               )}

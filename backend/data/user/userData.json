@@ -1,1 +1,15 @@
-{}
+{
+  "homePostalCode": "",
+  "officePostalCode": "",
+  "transportationMethod": "",
+  "commuteTime": "",
+  "maxCommuteTimeTolerance": "",
+  "daysOfWork": "3",
+  "workHours": "",
+  "hasDog": "No",
+  "hasChildren": "",
+  "roommatePreference": "",
+  "monthlyIncome": "",
+  "monthlyBudget": "",
+  "rentExpense": ""
+}

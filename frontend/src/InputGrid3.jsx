@@ -22,7 +22,7 @@ const inputConfig = [
     },
 ];
 
-function InputGrid3({ formData, setFormData, setGridPage }) {
+function InputGrid3({ setGridPage, formData, setFormData }) {
     const [loading, setLoading] = useState(false);
     const [progress, setProgress] = useState(0);
     const [response, setResponse] = useState("");
