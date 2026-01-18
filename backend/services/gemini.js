@@ -30,6 +30,7 @@ export async function askGemini(prompt, jsonContext = null) {
         const completion = await getClient().chat.completions.create({
             model: "google/gemini-2.0-flash-001",
             messages: [{ role: "user", content: userMessage }],
+            response_format: { type: "json_object" },
             temperature: 0.7,
         });
 

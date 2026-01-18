@@ -70,49 +70,66 @@ function InputGrid3({ setGridPage, formData, setFormData }) {
 				body: JSON.stringify(formData),
 			});
 
-			// Ask Gemini via backend
 			const res = await fetch('http://localhost:3000/ask', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
-					prompt: `You are a professional urban lifestyle optimizer for Vancouver, BC. Analyze this user's situation using the provided data and return a provide a friendly, clear, and actionable plan for the user.
+					prompt: `You are a Vancouver Urban Consultant. 
+Analyze the following data: ${JSON.stringify(formData)}
 
-STRICT GUIDELINES:
-- Never mention "JSON," "data files," or "provided data."
-- Speak directly to the user (use "You" instead of "The user").
-- Act as if you naturally know the current rent prices, transit routes, and park locations in Vancouver.
+Return ONLY a raw JSON object. 
+DO NOT use markdown code blocks (no \`\`\`json). 
+DO NOT include any introductory text.
 
-USE THE PROVIDED DATA:
-- rentData: Match postal codes to find neighborhoods, average/median rent, vacancy rates
-- skyTrainData: Find nearest stations to home and work postal codes
-- schoolsData (if provided): Find schools near home postal code
-- dogData (if provided): Find off-leash dog parks near home postal code (use geo_local_area if park_name is null)
+Structure:
+{
+  "living": "...",
+  "commute": "...",
+  "commuteTime": "...",
+  "car": "...",
+  "financialImpact": "...",
+  "burnoutRisk": "...",
+  "whyItWorks": "...",
+  "actionItems": ["item 1", "item 2", "item 3"]
+}`,
+// 					prompt: `You are a professional urban lifestyle optimizer for Vancouver, BC. Analyze this user's situation using the provided data and return a provide a friendly, clear, and actionable plan for the user.
 
-RESPOND IN THIS EXACT FORMAT:
+// STRICT GUIDELINES:
+// - Never mention "JSON," "data files," or "provided data."
+// - Speak directly to the user (use "You" instead of "The user").
+// - Act as if you naturally know the current rent prices, transit routes, and park locations in Vancouver.
 
-**Recommended Lifestyle Plan**
+// USE THE PROVIDED DATA:
+// - rentData: Match postal codes to find neighborhoods, average/median rent, vacancy rates
+// - skyTrainData: Find nearest stations to home and work postal codes
+// - schoolsData (if provided): Find schools near home postal code
+// - dogData (if provided): Find off-leash dog parks near home postal code (use geo_local_area if park_name is null)
 
-- Living: [Recommended neighborhood and why, based on rentData prices vs their budget]
-- Commute: [Transit X days/week, drive X days/week - based on their daysOfWork and transportationMethod]
-- Commute time: [Estimated average based on skyTrainData proximity] (within/exceeds tolerance)
-- Car: [Keep car / sell car / reduce usage - based on their situation]
-- Financial impact: [High/Moderate/Low savings potential based on rent vs budget]
-- Burnout risk: [Low/Moderate/High based on commute time vs tolerance and work hours]
+// RESPOND IN THIS EXACT FORMAT:
 
-**Why this works for you:**
-[2-3 sentences explaining the recommendation using specific data points - actual rent prices, station names, distances]
+// **Recommended Lifestyle Plan**
 
-**Nearby Amenities:**
-${formData.hasDog?.toLowerCase() === 'yes' ? '- Dog parks: [List 2-3 specific parks/areas from dogData with neighborhoods]' : ''}
-${formData.hasChildren?.toLowerCase() === 'yes' ? '- Schools: [List 2-3 specific schools from schoolsData with names and addresses]' : ''}
-- Transit: [List 2-3 nearest SkyTrain stations from skyTrainData]
+// - Living: [Recommended neighborhood and why, based on rentData prices vs their budget]
+// - Commute: [Transit X days/week, drive X days/week - based on their daysOfWork and transportationMethod]
+// - Commute time: [Estimated average based on skyTrainData proximity] (within/exceeds tolerance)
+// - Car: [Keep car / sell car / reduce usage - based on their situation]
+// - Financial impact: [High/Moderate/Low savings potential based on rent vs budget]
+// - Burnout risk: [Low/Moderate/High based on commute time vs tolerance and work hours]
 
-**Top 3 Action Items:**
-1. [Specific actionable step]
-2. [Specific actionable step]
-3. [Specific actionable step]
+// **Why this works for you:**
+// [2-3 sentences explaining the recommendation using specific data points - actual rent prices, station names, distances. Use line breaks to split each point into its own paragraph.]
 
-Be concise and specific. Use actual names, numbers, and addresses from the data.`,
+// **Nearby Amenities:**
+// ${formData.hasDog?.toLowerCase() === 'yes' ? '- Dog parks: [List 2-3 specific parks/areas from dogData with neighborhoods]' : ''}
+// ${formData.hasChildren?.toLowerCase() === 'yes' ? '- Schools: [List 2-3 specific schools from schoolsData with names and addresses]' : ''}
+// - Transit: [List 2-3 nearest SkyTrain stations from skyTrainData]
+
+// **Top 3 Action Items:**
+// 1. [Specific actionable step]
+// 2. [Specific actionable step]
+// 3. [Specific actionable step]
+
+// Be concise and specific. Use actual names, numbers, and addresses from the data.`,
 					context: formData,
 				}),
 			});

@@ -6,28 +6,42 @@ import { useLocation } from 'react-router-dom'
 
 export default function OutputPage() {
   const location = useLocation();
-
-  const [result, setResult] = useState({
-    living: "Placeholder living",
-    commute: "Placeholder commute",
-    commuteTime: "Placeholder commute time",
-    car: "Placeholder car",
-    explanation: "Placeholder explanation"
-  })
+  const [result, setResult] = useState(null);
 
   useEffect(() => {
-    const data = location.state;
-    setResult(prev => ({
-      ...prev,
-      explanation: data
-    }))
-  }, []);
+    if (location.state) {
+    try {
+      let rawData = location.state;
+
+      // 1. Sanitize the string: Remove markdown code blocks if they exist
+      if (typeof rawData === 'string') {
+        // This regex removes ```json and ``` from the string
+        rawData = rawData.replace(/```json|```/gi, '').trim();
+      }
+
+      // 2. Parse the clean string
+      const aiData = typeof rawData === 'string' ? JSON.parse(rawData) : rawData;
+      setResult(aiData);
+      
+    } catch (e) {
+      console.error("Parsing error:", e);
+      setResult({
+        living: "Error parsing data",
+        commute: "Please try again",
+        whyItWorks: location.state, // Show the raw text so you can still read it
+        actionItems: []
+      });
+    }
+  }
+  }, [location.state]);
+
+  if (!result) return <div className="loading">Processing plan...</div>;
 
   return (
     <>
       <img src={Background} className='background-image' />
       <HeaderComponent />
-      <div id='output-page-container'>
+      {/* <div id='output-page-container'>
         <h2 id='output-page-recommended-title' className='output-page-header-text'>
           Recommended Lifestyle Plan:
         </h2>
@@ -35,9 +49,65 @@ export default function OutputPage() {
         <p className='output-page-plain-text'><strong>Commute:</strong> {result.commute}</p>
         <p className='output-page-plain-text'><strong>Commute Time:</strong> {result.commuteTime}</p>
         <p className='output-page-plain-text'><strong>Car:</strong> {result.car}</p>
+
         <h2 className='output-page-header-text'>Explanation</h2>
-        <p className='output-page-plain-text'>{result.explanation}</p>
-      </div>
+        <div className="analysis-block">
+          <h3>Financial Impact</h3>
+          <p className='output-page-plain-text'>{result.financialImpact}</p>
+          
+          <h3>Burnout Risk</h3>
+          <p className='output-page-plain-text'>{result.burnoutRisk}</p>
+          
+          <h3>Why this works for you</h3>
+          <p className='output-page-plain-text'>{result.whyItWorks}</p>
+        </div>
+
+        <h2 className='output-page-header-text'>Top 3 Action Items</h2>
+        <ul className='output-page-plain-text'>
+          {result.actionItems?.map((item, index) => (
+            <li key={index} style={{ marginBottom: '10px' }}>{item}</li>
+          ))}
+        </ul>
+      </div> */}
+      <div id='output-page-container'>
+  <h2 id='output-page-recommended-title' className='output-page-header-text'>
+    Recommended Lifestyle Plan
+  </h2>
+  
+  <div className="summary-section">
+    <p className='output-page-plain-text'><strong>📍 Living:</strong> {result.living}</p>
+    <p className='output-page-plain-text'><strong>🚗 Commute:</strong> {result.commute}</p>
+    <p className='output-page-plain-text'><strong>⏱️ Commute Time:</strong> {result.commuteTime}</p>
+    <p className='output-page-plain-text'><strong>🔑 Car:</strong> {result.car}</p>
+  </div>
+
+  <h2 className='output-page-header-text'>Detailed Analysis</h2>
+  
+  <div className="analysis-block">
+  {/* Each of these acts as a paragraph block */}
+  <div className="paragraph-group">
+    <h3 className="sub-header">Financial Impact</h3>
+    <p className='output-page-plain-text'>{result.financialImpact}</p>
+  </div>
+
+  <div className="paragraph-group">
+    <h3 className="sub-header">Burnout Risk</h3>
+    <p className='output-page-plain-text'>{result.burnoutRisk}</p>
+  </div>
+
+  <div className="paragraph-group">
+    <h3 className="sub-header">Why this works for you</h3>
+    <p className='output-page-plain-text'>{result.whyItWorks}</p>
+  </div>
+</div>
+
+  <h2 className='output-page-header-text'>Top 3 Action Items</h2>
+  <ul className='output-page-plain-text' style={{ textAlign: 'left', width: '80%' }}>
+    {result.actionItems?.map((item, index) => (
+      <li key={index} style={{ marginBottom: '10px' }}>{item}</li>
+    ))}
+  </ul>
+</div>
     </>
-  ) // stub
+  )
 }
