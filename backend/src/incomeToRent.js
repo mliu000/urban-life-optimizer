@@ -1,4 +1,4 @@
-function calculateMonthlyRentBudget(monthlyIncome, incomePercentage) {
+function calculateMonthlyRentBudget(monthlyIncome, incomePercentage = 0.5) {
   return monthlyIncome * incomePercentage;
 }
 
